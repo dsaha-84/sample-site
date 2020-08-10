@@ -14,15 +14,15 @@ stage('Download Artifact') {
       sh '''
         #!/bin/sh
         set +x
-        AWS_ACCESS_KEY_ID=${env.accesskey}
-        AWS_SECRET_ACCESS_KEY=${env.secretKey} 
+        AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} 
+        AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} 
         export AWS_DEFAULT_REGION=${env.AWS_REGION}
 
         DEV_DOWNLOAD_FOLDER="$(pwd)/ARTIFACTS"
         mkdir -p $DEV_DOWNLOAD_FOLDER
         cd $DEV_DOWNLOAD_FOLDER        
         aws s3 cp s3://${env.bucketname}/${env.objectname} .
-        '''
+		'''
 
      }
   }
