@@ -16,7 +16,6 @@ stage('Download Artifact') {
         set +x
         AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} 
         AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} 
-        export AWS_DEFAULT_REGION=${env.AWS_REGION}
 
         DEV_DOWNLOAD_FOLDER="$(pwd)/ARTIFACTS"
         mkdir -p $DEV_DOWNLOAD_FOLDER
