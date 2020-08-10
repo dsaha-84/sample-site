@@ -18,9 +18,10 @@ stage('Download Artifact') {
         AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} 
 
         DEV_DOWNLOAD_FOLDER="$(pwd)/ARTIFACTS"
+	
         mkdir -p $DEV_DOWNLOAD_FOLDER
         cd $DEV_DOWNLOAD_FOLDER        
-        aws s3 cp s3://${env.bucketname}/${env.objectname} .
+        aws s3 cp s3://${bucketname}/${objectname} .
 		'''
 
      }
