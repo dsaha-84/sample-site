@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    
+    stages {
+	// Download zip file from S3 bucket 
+stage('Download Artifact') {
+  steps {
+    withCredentials([[
+     $class: 'AmazonWebServicesCredentialsBinding',
+     credentialsId: 'aws-credentials',
+     accessKeyVariable: ${env.accesskey},
+     secretKeyVariable: ${env.secretKey}
+    ]]) {
+      sh '''
+        #!/bin/sh
+        set +x
+        AWS_ACCESS_KEY_ID=${env.accesskey}
+        AWS_SECRET_ACCESS_KEY=${env.secretKey} 
+        export AWS_DEFAULT_REGION=${env.AWS_REGION}
+
+        DEV_DOWNLOAD_FOLDER="$(pwd)/ARTIFACTS"
+        mkdir -p $DEV_DOWNLOAD_FOLDER
+        cd $DEV_DOWNLOAD_FOLDER        
+        aws s3 cp s3://${env.bucketname}/${env.objectname} .
+
+     }
+  }
+}
+}
+}
