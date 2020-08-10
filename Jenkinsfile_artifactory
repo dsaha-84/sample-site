@@ -22,6 +22,7 @@ stage('Download Artifact') {
         mkdir -p $DEV_DOWNLOAD_FOLDER
         cd $DEV_DOWNLOAD_FOLDER        
         aws s3 cp s3://${env.bucketname}/${env.objectname} .
+	 '''
 
      }
   }
