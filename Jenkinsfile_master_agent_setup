@@ -12,17 +12,17 @@ import hudson.plugins.ec2.UnixData
 import jenkins.model.Jenkins
 
 // parameters
-ami = env.ami
+ami = env.Ami
 remoteAdmin = env.AgentAdminUser
 remoteFS = env.AgentremoteFS
 securityGroups = env.AgentSecurityGroups
 subnetId = env.AgentSubnetId
-type = env.AgentInstanceType
+instancetype = env.AgentInstanceType
 accessKey = env.AccessKey
 secretKey = env.SecretKey
 
 def SlaveTemplateUsEast1Parameters = [
-  ami:                      'ami-AAAAAAAA',
+  ami:                      ami,
   associatePublicIp:        true,
   connectBySSHProcess:      true,
   connectUsingPublicIp:     true,
@@ -38,14 +38,14 @@ def SlaveTemplateUsEast1Parameters = [
   labelString:              'aws.ec2.us.east.jenkins.slave',
   launchTimeoutStr:         '',
   numExecutors:             '1',
-  remoteAdmin:              'ec2-user',
-  remoteFS:                 '',
-  securityGroups:           'sg-11111111',
+  remoteAdmin:              remoteAdmin,
+  remoteFS:                 remoteFS,
+  securityGroups:           securityGroups,
   stopOnTerminate:          false,
-  subnetId:                 'subnet-SSSSSSSS',
+  subnetId:                 subnetId,
   tags:                     new EC2Tag('Name', 'jenkins-slave'),
   tmpDir:                   '',
-  type:                     't2.medium',
+  type:                     instancetype,
   useDedicatedTenancy:      false,
   useEphemeralDevices:      true,
   usePrivateDnsName:        true,
@@ -87,8 +87,8 @@ OpNx3TNnL9MgbEsZUOG+yA93DUiO4bZQi9ueBqiczO6zM7fy9RdrEzvKsJMQe9fia9KeSw==
 def AWSCredentialsImplParameters = [
   id:           'jenkins-aws-key',
   description:  'Jenkins AWS IAM key',
-  accessKey:    '01234567890123456789',
-  secretKey:    '01345645657987987987987987987987987987'
+  accessKey:    accessKey,
+  secretKey:    secretKey
 ]
 
 // https://github.com/jenkinsci/aws-credentials-plugin/blob/aws-credentials-1.23/src/main/java/com/cloudbees/jenkins/plugins/awscredentials/AWSCredentialsImpl.java
